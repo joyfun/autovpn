@@ -1,0 +1,42 @@
+#!/bin/sh
+
+set -x
+export PATH="/bin:/sbin:/usr/sbin:/usr/bin"
+
+## configure device name here
+VPNDEVICE=pptp-GFWVPN
+
+case $1 in
+     "pptp-GFWVPN")
+        goto addRoute
+        ;;
+      *)
+        # others
+        exit 0
+        ;;
+esac
+
+addRoute:
+
+## add route which was generated from autoddvpn
+/bin/sh /etc/ppp/gen_route.sh $VPNDEVICE 
+
+sleep 10
+
+## OpenWrt would do this automatically
+## /usr/sbin/iptables -t nat -A POSTROUTING -o $VPNDEVICE -j MASQUERADE
+## /sbin/route add -net $REMOTESUB netmask $REMOTENET dev $VPNDEVICE
+
+##### begin batch route #####      
+
+# your own custom IP 
+#route add -host 192.168.200.123 dev $VPNDEVICE
+#route add -net 192.168.0.0/16  dev $VPNDEVICE
+
+##### end batch route #####      
+
+## restart dnsmasq
+/etc/init.d/dnsmasq restart
+
+exit 0
+
