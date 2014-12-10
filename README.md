@@ -19,7 +19,7 @@ openwrt pptp vpn setup
   在firewall界面 选择wan接口
   pptp如果连不上 主要是因为加密参数的问题 可以 logread看相应的日志
   如果连不上 编辑  /etc/ppp/options.pptp  
-  根据实际情况加入加入 
+  根据实际情况加入加入(不需要全部加入) 
 ###  
     mppe required
     mppe stateless
@@ -47,7 +47,9 @@ dnsmasq设置就比较简单了 直接把相应的域名按照
     route add -net 174.36.30.0/24 dev $1
   
 至此及大功告成 windows下如果还是不能访问 可以 ipconfig /flushdns 清理下dns缓存  
-调试的时候可以使用 traceroute命令跟踪
-在实际使用的过程中,发现 route add 添加时有条数限制。当路由表添加条数过多时后添加的不会生效 不知道是rom的问题还是oepnwrt本身的问题
+调试的时候可以使用 traceroute命令跟踪。<br>
+ps在实际使用的过程中,发现 route add 添加时有条数限制。
+当路由表添加条数过多时后添加的不会生效 不知道是rom的问题还是oepnwrt本身的问题
+所以提供的路由表只包含google facebook和 twitter 可以根据实际情况添加
 
 
