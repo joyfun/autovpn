@@ -27,6 +27,9 @@ openwrt pptp vpn setup
     refuse-chap
     refuse-eap
     refuse-mschap
+     #最近老是掉 使用了暴力点的参数 同时需要注意下mtu
+    lcp-echo-interval 360
+    lcp-echo-failure 100
 建立 /etc/ppp/ip-up.d 文件夹 和 /etc/ppp/ip-up.d/pptp-GFWVPN文件
 别忘了添加权限 
 ###
